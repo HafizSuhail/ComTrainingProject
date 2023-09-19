@@ -1,4 +1,8 @@
-﻿@model IEnumerable<NHibernate_CURD._20.Customes.HospitalDto>
+Generate javascript code to open model by passing row id and then delete that record by using asp mvc 
+
+-----HTML_CODE------
+
+@model IEnumerable<NHibernate_CURD._20.Customes.HospitalDto>
 
 @{
     Layout = "_MainLayout";
@@ -83,6 +87,10 @@
  
 </div>
 
+
+
+-----JAVASCRIPT_CODE------
+
 <script type="text/javascript">
 
     const rowIdInput = document.getElementById('rowId');
@@ -136,5 +144,18 @@
 
 
 
+-----Controler Method--------
 
-
+public JsonResult DeleteHosRecord(int recordId) 
+{
+    try
+    {
+        _hospitalService.DeleteOperation(recordId);
+        return Json(true);
+    }
+    catch
+    {
+        return Json(false);
+    }
+   
+}
