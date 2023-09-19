@@ -1,0 +1,51 @@
+another way to delete the data 
+----JS CODE ----
+
+<script type="text/javascript">
+
+    let currentHospitalId = null;
+   
+    function openModal(rowId) {
+        // Set the row ID in a hidden field in the modal & pass it here
+        currentHospitalId = rowId;
+
+        // Show the modal
+        document.getElementById('deleteModal').style.display = 'block';
+    }
+
+    function closeModal() {
+        // Close the modal
+        document.getElementById('deleteModal').style.display = 'none';
+    }
+
+    // here Function name onclick name should be match
+    function DeleteHosRecord() { 
+
+
+        var Urlofdeleterecord = "https://localhost:7126/Hospital/DeleteHosRecord/" + currentHospitalId; // here url + rowid to delete particular row
+
+        var deleteHospitalrecord = { recordId: currentHospitalId };
+
+        //here 1st (recordId : ) is parameter same what i had given in controller method & 2nd (rowId) is rowid which am taking from alert modal
+
+        // Send the JSON data using $.post()
+        $.post(Urlofdeleterecord, deleteHospitalrecord,
+            function (response) {
+                if (response) {
+                    // Success callback
+                    $("#hospitalslist").find("#" + currentHospitalId).remove();
+                    // Here (Hospitallist) is table id name & (rowId) is rowid which am taking from alert modal
+                }
+                else {
+                    alert("Fail to delete a Hospital Record, please contact admin!");
+                }
+                closeModal(); // alert closing method after clicking
+            }, 'json')
+            .fail(function (xhr, status, error) {
+                // Error callback
+                console.error('Error:', error);
+                closeModal(); // alert closing method after clicking
+            });
+    }
+
+</script>

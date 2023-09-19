@@ -12,8 +12,7 @@ namespace NHibernate_CURD._20.Helpers
 {
     public static class NHibernateHelper
     {
-        //private static readonly ISessionFactory _sessionFactory;
-
+        
         public static void ConfigureServices(IServiceCollection services)
         {
             // Configure NHibernate
@@ -29,9 +28,9 @@ namespace NHibernate_CURD._20.Helpers
         {
             return Fluently.Configure()
                 .Database(MsSqlConfiguration.MsSql2012.ConnectionString("Server=DESKTOP-FP28SOE;Database=Microcare;User Id=Muhammed;Password=suhail@123"))
-                .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Patients>()
-                .AddFromAssemblyOf<Hospital>()
-                .AddFromAssemblyOf<City>())
+                .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Patients>() // Entity Class name of DB_Tables 
+                .AddFromAssemblyOf<Hospital>() // Entity Class name of DB_Tables 
+                .AddFromAssemblyOf<City>()) // Entity Class name of DB_Tables 
                 .BuildSessionFactory();
         }
 

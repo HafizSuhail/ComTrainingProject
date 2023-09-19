@@ -16,7 +16,7 @@ namespace NHibernate_CURD._20.Customes
         public int zipcode { get; set; }
 
         [Display(Name = "Country Name")]
-        public int city_id { get; set; }
+        public int  city_id { get; set; }
         public string? cityName { get; set; }
 
     }
