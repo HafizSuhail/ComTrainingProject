@@ -1,0 +1,128 @@
+﻿@model IEnumerable<NHibernate_CURD._20.Customes.HospitalDto>
+
+@{
+    Layout = "_MainLayout";
+}
+
+<div class="container-fluid">
+
+    <div>
+        <a class="btn btn-primary btn-sm float-end mb-2 " role="button" type="link" href="@Url.Action(controller:"Hospital",action:"Registration_EditForm")">Add Hospital</a>
+    </div>
+
+    <table class="table table-bordered table-hover table-sm text-center" id="hospitalslist">
+        <thead>
+            <tr class="table-active">
+
+                <th>
+                    @Html.DisplayNameFor(model => model.hospitalName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.hosState)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.zipcode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.city_id)
+                </th>
+                <th scope="auto" colspan="2" align="center" class="text-warning">Modification</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr id="@item.hospital_id">
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.hospitalName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.hosState)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.zipcode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.cityName)
+                    </td>
+                   
+
+                    <td><a class="btn btn-secondary btn-sm" href="@Url.Action("Registration_EditForm","Hospital", new {recordId = item.hospital_id})">Edit</a></td>
+                    @* <td><a class="btn btn-danger btn-sm" href="#" onclick="DeleteHosRecord(@item.hospital_id)">Delete</a></td> *@
+                    <td>
+                        @* Button trigger modal *@
+                         <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#recorddelete">Delete</button>
+                    </td>
+                </tr>
+
+                   @* <!-- Modal --> *@
+                <div class="modal fade" id="recorddelete" tabindex="-1" aria-labelledby="recorddeleteLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="recorddeleteLabel">Alert!!</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="alert alert-danger" role="alert">
+                                Are you sure you want to delete this !!!
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                        <a class="btn btn-danger btn-sm" href="#" onclick="DeleteHosRecord(@item.hospital_id)" data-bs-dismiss="modal">Delete</a>
+                        @* <button type="button" class="btn btn-primary">Save changes</button> *@
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                 
+            }
+        </tbody>
+
+    </table>
+
+     
+               
+               
+</div>
+
+
+
+
+<script type="text/javascript">
+
+    // here Function name onclick name should be match
+    function DeleteHosRecord(recordId) { //here recordId is parameter same what i had given in controller method
+
+        var Urlofdeleterecord = "https://localhost:7126/Hospital/DeleteHosRecord";
+
+        var deleteHospitalrecord = { recordId: recordId };
+
+        //here 1st (recordId : ) is property & 2nd (recordId) is parameter same what i had given in controller method
+
+        // Send the JSON data using $.post()
+        $.post(Urlofdeleterecord,deleteHospitalrecord,
+            function (response) {
+                if (response) {
+                    // Success callback
+                    $("#hospitalslist").find("#" + recordId).remove();
+                    // Here (Hospitallist) is id name & (recordId) is parameter same what i had given in controller method
+                }
+                else {
+                    alert("Fail to delete a Hospital Record, please contact admin!");
+                }
+
+            }, 'json')
+            .fail(function (xhr, status, error) {
+                // Error callback
+                console.error('Error:', error);
+            });
+    }
+</script>
+
+
+
+

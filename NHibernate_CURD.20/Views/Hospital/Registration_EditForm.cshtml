@@ -1,0 +1,66 @@
+﻿@model NHibernate_CURD._20.Models.HospitalEditorModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Registration_EditForm";
+    Layout = "_MainLayout";
+}
+
+<div id="MainDiv">
+    <h1 class=" offset-md-3 align-content-center">HOSPITAL REGISTRATION FORM</h1>
+    <hr />
+    <div class="row align-content-center">
+        <div class="col-md-4 offset-4">
+            <form 
+                asp-controller="Hospital"
+                  asp-action="CreateOrEdit">
+
+                <div class="alert alert-info text-center" role="alert">
+                    <h5>Fill Details</h5>
+                </div>
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <input asp-for="Hospitalid">
+
+                
+                <div class="form-group">
+                    <label asp-for="HospitalName" class="control-label"></label>
+                    <input asp-for="HospitalName" class="form-control" />
+                    <span asp-validation-for="HospitalName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="HosState" class="control-label"></label>
+                    <input asp-for="HosState" class="form-control" />
+                    <span asp-validation-for="HosState" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Zipcode" class="control-label"></label>
+                    <input asp-for="Zipcode" class="form-control" />
+                    <span asp-validation-for="Zipcode" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Cityid" class="control-label"></label>
+                    <select asp-for="Cityid" class="form-control" asp-items="Model.Cities"> </select>
+                    <span asp-validation-for="Cityid" class="text-danger"></span>
+                </div>
+
+                <div class="mt-2 float-end">
+                    <a class="btn btn-secondary " asp-action="HospitalList">Back</a>
+                    <button class="btn btn-primary " type="submit">Save</button>
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
