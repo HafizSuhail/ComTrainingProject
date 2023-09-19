@@ -66,8 +66,6 @@ namespace NHibernate_CURD._20.Controllers
                 return Json(false);
             }
            
-
-
         }
             
         

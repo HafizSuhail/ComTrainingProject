@@ -12,7 +12,7 @@ namespace NHibernate_CURD._20.Helpers
 {
     public static class NHibernateHelper
     {
-        private static readonly ISessionFactory _sessionFactory;
+        //private static readonly ISessionFactory _sessionFactory;
 
         public static void ConfigureServices(IServiceCollection services)
         {
